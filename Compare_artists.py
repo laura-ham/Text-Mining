@@ -1,7 +1,4 @@
 import pandas as pd
-import os
-import nltk
-from nltk import sent_tokenize, word_tokenize
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 analyzer = SentimentIntensityAnalyzer()
 from os import path
@@ -77,12 +74,6 @@ for index, row in songs_2.iterrows():
 songs_2['sentiment'] = sentiment_2
 songs = songs_2.sort('sentiment')
 
-pos_lines_1 = str(pos_songs_1).splitlines()
-pos_text_1 = "".join(pos_lines_1)
-
-neg_lines_1 = str(neg_songs_1).splitlines()
-neg_text_1 = "".join(neg_lines_1)
-
 if artist_sentiment_1 >= artist_sentiment_2:
     pos_artist = artist_1
     neg_artist = artist_2
@@ -92,7 +83,22 @@ elif artist_sentiment_1 < artist_sentiment_2:
 
 print('{0} songs are more positive than {1} songs.'.format(pos_artist, neg_artist))
 
-d = path.dirname('Project_wordclouds.py')
+
+#the wordclouds of the positive and negative songs of both artists are printed
+
+pos_lines_1 = str(pos_songs_1).splitlines()
+pos_text_1 = "".join(pos_lines_1)
+
+neg_lines_1 = str(neg_songs_1).splitlines()
+neg_text_1 = "".join(neg_lines_1)
+
+pos_lines_2 = str(pos_songs_2).splitlines()
+pos_text_2 = "".join(pos_lines_2)
+
+neg_lines_2 = str(neg_songs_2).splitlines()
+neg_text_2 = "".join(neg_lines_2)
+
+d = path.dirname('Compare_artists.py')
 mask = np.array(Image.open(path.join(d, "music.png")))
 image_colors = ImageColorGenerator(mask)
 stopwords = set(STOPWORDS)
@@ -102,9 +108,10 @@ stopwords.add("Chorus")
 wc = WordCloud(background_color="white", mask=mask, stopwords=stopwords)
 wc.generate(pos_text_1)
 plt.imshow(wc, interpolation='bilinear')
+plt.title('Positive songs of ' + artist_1)
 plt.axis("off")
 
-d = path.dirname('Project_wordclouds.py')
+d = path.dirname('Compare_artists.py')
 mask = np.array(Image.open(path.join(d, "music.png")))
 image_colors = ImageColorGenerator(mask)
 stopwords = set(STOPWORDS)
@@ -114,4 +121,31 @@ stopwords.add("Chorus")
 wc = WordCloud(background_color="white", mask=mask, stopwords=stopwords)
 wc.generate(neg_text_1)
 plt.imshow(wc, interpolation='bilinear')
+plt.title('Negative songs of ' + artist_1)
+plt.axis("off")
+
+d = path.dirname('Compare_artists.py')
+mask = np.array(Image.open(path.join(d, "music.png")))
+image_colors = ImageColorGenerator(mask)
+stopwords = set(STOPWORDS)
+stopwords.add("ain't")
+stopwords.add("got")
+stopwords.add("Chorus")
+wc = WordCloud(background_color="white", mask=mask, stopwords=stopwords)
+wc.generate(pos_text_2)
+plt.imshow(wc, interpolation='bilinear')
+plt.title('Positive songs of ' + artist_2)
+plt.axis("off")
+
+d = path.dirname('Compare_artists.py')
+mask = np.array(Image.open(path.join(d, "music.png")))
+image_colors = ImageColorGenerator(mask)
+stopwords = set(STOPWORDS)
+stopwords.add("ain't")
+stopwords.add("got")
+stopwords.add("Chorus")
+wc = WordCloud(background_color="white", mask=mask, stopwords=stopwords)
+wc.generate(neg_text_2)
+plt.imshow(wc, interpolation='bilinear')
+plt.title('Negative songs of ' + artist_2)
 plt.axis("off")
