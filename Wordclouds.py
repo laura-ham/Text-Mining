@@ -49,7 +49,7 @@ for index, row in songs[:15].iterrows():
     i += 1
 pos_lines = str(pos_lyrics).splitlines()
 pos_text = "".join(pos_lines)
-d = path.dirname('Project_wordclouds.py')
+d = path.dirname('Wordclouds.py')
 mask = np.array(Image.open(path.join(d, "music.png")))
 image_colors = ImageColorGenerator(mask)
 stopwords = set(STOPWORDS)
@@ -59,6 +59,7 @@ stopwords.add("Chorus")
 wc = WordCloud(background_color="white", mask=mask, stopwords=stopwords)
 wc.generate(pos_text)
 plt.imshow(wc, interpolation='bilinear')
+plt.title('Positive songs of ' + artist_2)
 plt.axis("off")
 wc.to_file('positive.png')
 
@@ -72,7 +73,7 @@ for index, row in songs[:15].iterrows():
     i += 1
 neg_lines = str(neg_lyrics).splitlines()
 neg_text = "".join(neg_lines)
-d = path.dirname('Project_wordclouds.py')
+d = path.dirname('Wordclouds.py')
 mask = np.array(Image.open(path.join(d, "music.png")))
 image_colors = ImageColorGenerator(mask)
 stopwords = set(STOPWORDS)
@@ -83,6 +84,7 @@ wc = WordCloud(background_color="white", mask=mask, stopwords=stopwords)
 wc.generate(neg_text)
 plt.imshow(wc, interpolation='bilinear')
 plt.axis("off")
+plt.title('Negative songs of ' + artist_2)
 wc.to_file('negative.png')
 
 print("The wordclouds are printed of the most frequent words of the 15 most positive and negative songs.")
