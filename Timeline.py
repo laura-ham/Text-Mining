@@ -75,6 +75,5 @@ plt.show()
 plt.legend()
 axes = plt.gca()
 axes.set_xlim([(years[0]-1), (years[-1]+1)])
-plt.to_file('graph.png')
 
 print("{0}'s song sentiments are displayed in the plot. {0}'s song '{1}' is the most positive song and '{2}' the most negative one.".format(artist, pos_song, neg_song))
